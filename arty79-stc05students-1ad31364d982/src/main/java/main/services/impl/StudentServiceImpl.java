@@ -38,8 +38,8 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @PreAuthorize(value = "hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     public List<StudentDTO> getAllStudents() {
-        List<Student> students =(List<Student>) studentRepo.findAll();
-        //List<Student> students = (List<Student>) studentDAO.getAll();
+        //List<Student> students =(List<Student>) studentRepo.findAll();
+        List<Student> students = (List<Student>) studentDAO.getAll();
         students.sort(Comparator.comparingLong(Student::getId));
         List<StudentDTO> studentDTOs = new ArrayList<>();
         students.forEach(student -> {
@@ -68,19 +68,18 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     public void deleteStudent(long id) {
-     /*   Student student = new Student();
+        Student student = new Student();
         student.setId(id);
         studentDAO.delete(student);
-        */
-     studentRepo.delete(id);
+     //studentRepo.delete(id);
     }
 
     @Override
     @PreAuthorize(value = "hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     public StudentDTO getById(long studentId) {
-        Student student = studentRepo.findOne(studentId);
-        return boundMapper.map(student);
-        //return boundMapper.map(studentDAO.getById(studentId));
+        /*Student student = studentRepo.findOne(studentId);
+        return boundMapper.map(student);*/
+        return boundMapper.map(studentDAO.getById(studentId));
     }
 
     @Autowired

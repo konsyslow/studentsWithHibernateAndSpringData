@@ -1,28 +1,39 @@
 package main.model.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  *
  */
 @Entity
-public class Lesson {
-    private int id;
+@Table(name = "lesson")
+@NamedQueries({
+        @NamedQuery(name="Lesson.findAll", query="select c from Lesson c"),
+        @NamedQuery(name="Lesson.findById",
+                query="select distinct c from Lesson c where c.id = :id"),
+})
+@SqlResultSetMapping(
+        name="lessonResult",
+        entities=@EntityResult(entityClass=Lesson.class)
+)
+public class Lesson implements Serializable {
+    private long id;
+    private long groupId;
     private Timestamp lessonDate;
     private int room;
     private String description;
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -53,4 +64,12 @@ public class Lesson {
         this.description = description;
     }
 
+    @Column(name = "study_group_id")
+    public long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(long groupId) {
+        this.groupId = groupId;
+    }
 }

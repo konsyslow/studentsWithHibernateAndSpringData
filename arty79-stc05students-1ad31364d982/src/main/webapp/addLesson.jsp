@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8"/>
-    <title>Add user</title>
+    <title>Add lesson</title>
 </head>
 <body>
 <c:url value="/logout" var="logoutUrl" />
@@ -24,18 +24,22 @@
             href="javascript:formSubmit()"> Logout</a>
     </h2>
 </c:if>
-<form method="post" action="${pageContext.request.contextPath}/list/update">
-    <input name="id" value="${student.id}" type="hidden">
-    <label>Name</br>
-        <input type="text" name="name" value="${student.name}"/>
+<form method="post" action="${pageContext.request.contextPath}/listLessons/update">
+    <input name="id" value="${lesson.id}" type="hidden">
+    <label>Room</br>
+        <input type="text" name="room" value="${lesson.room}"/>
         </br>
     </label>
-    <label>Age</br>
-        <input type="text" name="age" value="${student.age}"/>
+    <label>Lesson date</br>
+        <input type="text" name="lessonDate" value="${lesson.lessonDate}"/>
         </br>
     </label>
-    <label>Group</br>
-        <input type="text" name="groupId" value="${student.groupId}">
+    <label>Group Id</br>
+        <input type="text" name="studyGroupId" value="${lesson.studyGroupId}">
+        </br>
+    </label>
+    <label>Description</br>
+        <input type="text" name="description" value="${lesson.description}">
         </br>
     </label>
     <input type="submit" value="Save"/>

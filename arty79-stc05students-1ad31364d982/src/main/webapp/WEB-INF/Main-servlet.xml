@@ -57,6 +57,20 @@
         </property>
     </bean>
 
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+         <property name="dataSource" ref="dataSource" />
+         <property name="typeAliasesPackage" value="main.model.entity"/>
+         <property name="mapperLocations" value="classpath:mybatis-mapper.xml" />
+    </bean>
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory" />
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="main.model.dao.mappers" />
+    </bean>
+
     <jpa:repositories base-package="main.model.dao" entity-manager-factory-ref="emf"/>
 
 </beans>
